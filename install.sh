@@ -158,7 +158,20 @@ function paru-install()
 {
     if [ ! -e "$PARU" ]; 
         then
+            echo -ne "
+-------------------------------------------------------------------------
+           Installing Rust
+-------------------------------------------------------------------------
+"
+            sudo pacman -S rust --noconfirm --needed 
+            
+            echo -ne "
+-------------------------------------------------------------------------
+           Installing Base System for ARU-Helper
+-------------------------------------------------------------------------
+"
             sudo pacman -S base-devel --noconfirm -needed
+           
             echo -ne "
 -------------------------------------------------------------------------
            Installing Paru
@@ -177,13 +190,13 @@ function paru-install()
         fi    
 }
 function arch_app()
-{
+{    
     echo -ne "
 -------------------------------------------------------------------------
            Installing ZSH Shell
 -------------------------------------------------------------------------
 "
-    sudo pacman -S zsh --noconfirm
+    sudo pacman -S zsh --noconfirm --needed
 
     echo -ne "
 -------------------------------------------------------------------------
@@ -198,7 +211,7 @@ function arch_app()
 -------------------------------------------------------------------------
 "
     # There is a confit in font packages that why remoing ttf-hack font 
-    paru -Rs ttf-hack --noconfirm
+    paru -R ttf-hack --noconfirm --needed
     # Installing powerline font
     paru -S powerline-fonts-git --noconfirm --needed
 
