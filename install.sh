@@ -210,18 +210,28 @@ function arch_app()
            Installing  Powerline-font
 -------------------------------------------------------------------------
 "
-    # There is a confit in font packages that why remoing ttf-hack font 
-    paru -R ttf-hack --noconfirm --needed
-    # Installing powerline font
+    paru -R ttf-hack --noconfirm --needed   
     paru -S powerline-fonts-git --noconfirm --needed
-
+    
     echo -ne "
 -------------------------------------------------------------------------
            Installing  Awesome-font
 -------------------------------------------------------------------------
 "   
-    # Installing ttf-awesome fonts
     paru -S ttf-font-awesome --noconfirm --needed
+    echo -ne "  
+-------------------------------------------------------------------------
+            Install Nerd Fonts
+            1. Nerd Mononoki Font
+            2. Meslo Nerd Font Power10K
+            3. Meslo Storm Font
+-------------------------------------------------------------------------
+"
+    paru -S nerd-fonts-mononoki --noconfirm --needed
+    paru -S ttf-meslo-nerd-font-powerlevel10k --noconfirm --needed
+    paru -S nerd-fonts-meslo --noconfirm --needed
+
+    cp -r NerdFonts  ~/.local/share
 
     echo -ne "
 -------------------------------------------------------------------------
@@ -266,20 +276,47 @@ function debain_app()
 "
     sudo dpkg -i lsd.deb
 
-    echo -ne "
--------------------------------------------------------------------------
-           Installing Powerline  Fonts
--------------------------------------------------------------------------
-"
-    sudo apt-get install -y fonts-powerline    
 
     echo -ne "
 -------------------------------------------------------------------------
-           Installing Awesome Fonts
+           --- Installing Fonts ---
+
+           1. Powerline Fonts
+           2. Font Awesome Fonts
 -------------------------------------------------------------------------
 "
-    sudo apt-get install -y fonts-font-awesome
+    sudo apt-get install fonts-powerline -y
+    sudo apt-get install fonts-font-awesome -y
+    sudo apt-get install fonts-mononoki -y
+    sudo apt-get install fontconfig -y
 
+    # Install powerline fonts
+    cd ~
+    wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+    wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+    mkdir ~/.fonts #if directory doesn't exist
+    mv PowerlineSymbols.otf ~/.fonts/
+    mkdir -p ~/.config/fontconfig/conf.d #if directory doesn't exists
+
+    # Cache the font
+    fc-cache -vf ~/.fonts/
+    
+    # moving the fonts
+    mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+
+
+    cd ~
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip
+    mkdir -p .local/share/fonts
+    unzip Meslo.zip -d .local/share/fonts
+    cd .local/share/fonts
+    rm *Windows*
+    cd ~
+    rm Meslo.zip
+    fc-cache -fv
+    
+    cp -r NerdFonts  ~/.local/share
+    
     echo -ne "
 -------------------------------------------------------------------------
            Installing  ZSH Tools
