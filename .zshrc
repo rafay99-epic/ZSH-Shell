@@ -110,8 +110,19 @@ fm6000 -c blue -m 9 -g 9 -l 25
 
 # Different alias for shell
 alias ls="lsd"
-alias cat="ccat"
 alias rm="rm -ir"
+alias ls="lsd"
+alias cp="cp -r"
+alias dir='dir --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'   
+alias grep='grep --color=auto'
+alias grubup="sudo update-grub"
+alias hw='hwinfo --short'
+alias upd='/usr/bin/update'
+alias vdir='vdir --color=auto'
+alias wget='wget -c '
+    
 
 # Auto complete
 # znap source marlonrichert/zsh-autocomplete
